@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Document</title>
+</head>
+<body>
+    <div id="root"></div>
+</body>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+        function App() {
+        const [amount, setAmount] = React.useState(0);
+        const [flipped, setFlipped] = React.useState((current) => !current);
+        const onChange = (event) => {
+            setAmount(event.target.value);
+        }
+        const reset = () => setAmount(0);
+        const onFlip = () => {
+            reset();
+            setFlipped(!flipped);
+        };
+        return (
+        <div>
+            <h1 className="title">Super Converter</h1>
+            <div>
+                <label htmlFor="minutes">Min</label>
+                <input value={flipped ? amount * 60 : amount} 
+                id="minutes" placeholder="Minutes" 
+                type="number" 
+                onChange={onChange} 
+                disabled={flipped}/>
+            </div>
+            <div>
+                <label htmlFor="hours">Hour</label>
+                <input value={flipped ? amount : amount / 60} 
+                id="hours" 
+                placeholder="Hours" 
+                type="number" 
+                onChange={onChange} 
+                disabled={!flipped}/>
+            </div>
+            <button onClick={reset}>Reset</button>
+            <button onClick={onFlip}>Flip!</button>
+        </div>
+        )};
+        ReactDOM.render(<App />, root);
+    </script>
+</html>
