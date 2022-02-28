@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Document</title>
+</head>
+<body>
+    <div id="root"></div>
+</body>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+        function Btn({text, changeValue}) {
+            return <button  
+            onClick={changeValue}
+            style={{
+                backgroundColor: "navy",
+                color: "white",
+                padding: "10px 20px",
+                border: "0",
+                borderRadius: "5px",
+                fontSize: 16,
+            }}>{text}</button>
+        }
+
+        const MemorizedBtn = React.memo(Btn);
+
+        function App() {
+            const [val, setVal] = React.useState("Save Changes");
+            const changeValue = () => setVal("Revert Changes");
+            return (
+                <div>
+                    <Btn text={val} changeValue={changeValue}/>
+                    <MemorizedBtn text="Countinue" />
+                </div>)
+        };
+
+        const root = document.getElementById("root");
+        ReactDOM.render(<App />, root);
+    </script>
+</html>
